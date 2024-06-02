@@ -1,6 +1,5 @@
 const api = {
     BASE_URL: 'https://api.thecatapi.com/v1',
-    API_KEY: process.env.API_KEY,
 };
 
 const common = {

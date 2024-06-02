@@ -1,6 +1,9 @@
 import { common, api } from './common';
+require('dotenv').config();
 
-const { BASE_URL, API_KEY } = api;
+const api_key = process.env.API_KEY;
+
+const { BASE_URL } = api;
 
 const { catLoader, listCats } = common;
 
@@ -17,7 +20,7 @@ async function fetchCatByBreed(breedId) {
     catLoader.hidden = false;
     listCats.hidden = true;
     const resp = await fetch(
-        `${BASE_URL}/images/search?breed_ids=${breedId}&api_key=${API_KEY}`
+        `${BASE_URL}/images/search?breed_ids=${breedId}&api_key=${api_key}`
     );
     if (!resp.ok) {
         throw new Error(resp.statusText);
