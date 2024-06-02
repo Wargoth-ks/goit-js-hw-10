@@ -4,28 +4,25 @@ const { BASE_URL, API_KEY } = api;
 
 const { catLoader, listCats } = common;
 
-function fetchBreeds() {
-    return fetch(`${BASE_URL}/breeds`).then(resp => {
-        if (!resp.ok) {
-            // console.dir(resp.statusText);
-            throw new Error(resp.statusText);
-        }
-        // console.dir(object);
-        return resp.json();
-    });
+async function fetchBreeds() {
+    const resp = await fetch(`${BASE_URL}/breeds`);
+    if (!resp.ok) {
+        // console.dir(resp.statusText);
+        throw new Error(resp.statusText);
+    }
+    return await resp.json();
 }
 
-function fetchCatByBreed(breedId) {
+async function fetchCatByBreed(breedId) {
     catLoader.hidden = false;
     listCats.hidden = true;
-    return fetch(
+    const resp = await fetch(
         `${BASE_URL}/images/search?breed_ids=${breedId}&api_key=${API_KEY}`
-    ).then(resp => {
-        if (!resp.ok) {
-            throw new Error(resp.statusText);
-        }
-        return resp.json();
-    });
+    );
+    if (!resp.ok) {
+        throw new Error(resp.statusText);
+    }
+    return await resp.json();
 }
 
 export { fetchBreeds, fetchCatByBreed };
